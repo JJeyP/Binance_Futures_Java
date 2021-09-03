@@ -16,14 +16,14 @@ class ApiSignature {
     private static final String signatureMethodValue = "HmacSHA256";
     public static final String signatureVersionValue = "2";
 
-    void createSignature(String accessKey, String secretKey, UrlParamsBuilder builder) {
+    void createSignature(String accessKey, String secretKey, Long timestamp, UrlParamsBuilder builder) {
 
         if (accessKey == null || "".equals(accessKey) || secretKey == null || "".equals(secretKey)) {
             throw new BinanceApiException(BinanceApiException.KEY_MISSING, "API key and secret key are required");
         }
 
         builder.putToUrl("recvWindow", Long.toString(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW))
-                .putToUrl("timestamp", Long.toString(System.currentTimeMillis()));
+                .putToUrl("timestamp", timestamp != null ? timestamp.toString() : Long.toString(System.currentTimeMillis()));
 
         Mac hmacSha256;
         try {

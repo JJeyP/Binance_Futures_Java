@@ -16,6 +16,6 @@ public class ChangeMarginType {
                 options);
 
         // margin type: ISOLATED, CROSSED
-        System.out.println(syncRequestClient.changeMarginType("BTCUSDT", "ISOLATED"));
+        System.out.println(syncRequestClient.changeMarginType("BTCUSDT", "ISOLATED", null));
     }
 }

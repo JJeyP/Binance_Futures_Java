@@ -81,47 +81,48 @@ public class SyncRequestImpl implements SyncRequestClient {
     }
 
     @Override
-    public List<Object> postBatchOrders(String batchOrders) {
-        return RestApiInvoker.callSync(requestImpl.postBatchOrders(batchOrders));
+    public List<Object> postBatchOrders(String batchOrders, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.postBatchOrders(batchOrders, timestamp));
     }
     
     @Override
     public Order postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
             TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-            String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType) {
+            String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType,
+            Long timestamp) {
         return RestApiInvoker.callSync(requestImpl.postOrder(symbol, side, positionSide, orderType,
                 timeInForce, quantity, price, reduceOnly, 
-                newClientOrderId, stopPrice, workingType,newOrderRespType));
+                newClientOrderId, stopPrice, workingType,newOrderRespType, timestamp));
     }
     
     @Override
-    public Order cancelOrder(String symbol, Long orderId, String origClientOrderId) {
-        return RestApiInvoker.callSync(requestImpl.cancelOrder(symbol, orderId, origClientOrderId));
+    public Order cancelOrder(String symbol, Long orderId, String origClientOrderId, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.cancelOrder(symbol, orderId, origClientOrderId, timestamp));
     }
 
     @Override
-    public ResponseResult cancelAllOpenOrder(String symbol) {
-      return RestApiInvoker.callSync(requestImpl.cancelAllOpenOrder(symbol));
+    public ResponseResult cancelAllOpenOrder(String symbol, Long timestamp) {
+      return RestApiInvoker.callSync(requestImpl.cancelAllOpenOrder(symbol, timestamp));
     }
 
     @Override
-    public List<Object> batchCancelOrders(String symbol, String orderIdList, String origClientOrderIdList) {
-        return RestApiInvoker.callSync(requestImpl.batchCancelOrders(symbol, orderIdList, origClientOrderIdList));
+    public List<Object> batchCancelOrders(String symbol, String orderIdList, String origClientOrderIdList, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.batchCancelOrders(symbol, orderIdList, origClientOrderIdList, timestamp));
     }
 
     @Override
-    public ResponseResult changePositionSide(boolean dual) {
-        return RestApiInvoker.callSync(requestImpl.changePositionSide(dual));
+    public ResponseResult changePositionSide(boolean dual, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.changePositionSide(dual, timestamp));
     }
 
     @Override
-    public ResponseResult changeMarginType(String symbolName, String marginType) {
-        return RestApiInvoker.callSync(requestImpl.changeMarginType(symbolName, marginType));
+    public ResponseResult changeMarginType(String symbolName, String marginType, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.changeMarginType(symbolName, marginType, timestamp));
     }
 
     @Override
-    public JSONObject addIsolatedPositionMargin(String symbolName, int type, String amount, PositionSide positionSide) {
-        return RestApiInvoker.callSync(requestImpl.addPositionMargin(symbolName, type, amount, positionSide));
+    public JSONObject addIsolatedPositionMargin(String symbolName, int type, String amount, PositionSide positionSide, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.addPositionMargin(symbolName, type, amount, positionSide, timestamp));
     }
 
     @Override
@@ -131,92 +132,92 @@ public class SyncRequestImpl implements SyncRequestClient {
 
 
     @Override
-    public JSONObject getPositionSide() {
-        return RestApiInvoker.callSync(requestImpl.getPositionSide());
+    public JSONObject getPositionSide(Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getPositionSide(timestamp));
     }
 
     @Override
-    public Order getOrder(String symbol, Long orderId, String origClientOrderId) {
-        return RestApiInvoker.callSync(requestImpl.getOrder(symbol, orderId, origClientOrderId));
+    public Order getOrder(String symbol, Long orderId, String origClientOrderId, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getOrder(symbol, orderId, origClientOrderId, timestamp));
     }
     
     @Override
-    public List<Order> getOpenOrders(String symbol) {
-        return RestApiInvoker.callSync(requestImpl.getOpenOrders(symbol));
+    public List<Order> getOpenOrders(String symbol, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getOpenOrders(symbol, timestamp));
     }
     
     @Override
-    public List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getAllOrders(symbol, orderId, startTime, endTime, limit));
+    public List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getAllOrders(symbol, orderId, startTime, endTime, limit, timestamp));
     }
     
     @Override
-    public List<AccountBalance> getBalance() {
-        return RestApiInvoker.callSync(requestImpl.getBalance());
+    public List<AccountBalance> getBalance(Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getBalance(timestamp));
     }
     
     @Override
-    public AccountInformation getAccountInformation() {
-        return RestApiInvoker.callSync(requestImpl.getAccountInformation());
+    public AccountInformation getAccountInformation(Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getAccountInformation(timestamp));
     }
     
     @Override
-    public Leverage changeInitialLeverage(String symbol, Integer leverage) {
-        return RestApiInvoker.callSync(requestImpl.changeInitialLeverage(symbol, leverage));
+    public Leverage changeInitialLeverage(String symbol, Integer leverage, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.changeInitialLeverage(symbol, leverage, timestamp));
     }
     
     @Override
-    public List<PositionRisk> getPositionRisk() {
-        return RestApiInvoker.callSync(requestImpl.getPositionRisk());
+    public List<PositionRisk> getPositionRisk(String symbol, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getPositionRisk(symbol, timestamp));
     }
     
     @Override
-    public List<MyTrade> getAccountTrades(String symbol, Long startTime, Long endTime, Long fromId, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getAccountTrades(symbol, startTime, endTime, fromId, limit));
+    public List<MyTrade> getAccountTrades(String symbol, Long startTime, Long endTime, Long fromId, Integer limit, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getAccountTrades(symbol, startTime, endTime, fromId, limit, timestamp));
     }
     
     @Override
-    public List<Income> getIncomeHistory(String symbol, IncomeType incomeType, Long startTime, Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getIncomeHistory(symbol, incomeType, startTime, endTime, limit));
+    public List<Income> getIncomeHistory(String symbol, IncomeType incomeType, Long startTime, Long endTime, Integer limit, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getIncomeHistory(symbol, incomeType, startTime, endTime, limit, timestamp));
     }
     
     @Override
-    public String startUserDataStream() {
-        return RestApiInvoker.callSync(requestImpl.startUserDataStream());
+    public String startUserDataStream(Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.startUserDataStream(timestamp));
     }
     
     @Override
-    public String keepUserDataStream(String listenKey) {
-        return RestApiInvoker.callSync(requestImpl.keepUserDataStream(listenKey));
+    public String keepUserDataStream(String listenKey, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.keepUserDataStream(listenKey, timestamp));
     }
     
     @Override
-    public String closeUserDataStream(String listenKey) {
-        return RestApiInvoker.callSync(requestImpl.closeUserDataStream(listenKey));
+    public String closeUserDataStream(String listenKey, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.closeUserDataStream(listenKey, timestamp));
     }
 
     @Override
-    public List<OpenInterestStat> getOpenInterestStat(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getOpenInterestStat(symbol, period, startTime, endTime, limit));
+    public List<OpenInterestStat> getOpenInterestStat(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getOpenInterestStat(symbol, period, startTime, endTime, limit, timestamp));
     }
 
     @Override
-    public List<CommonLongShortRatio> getTopTraderAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getTopTraderAccountRatio(symbol, period, startTime, endTime, limit));
+    public List<CommonLongShortRatio> getTopTraderAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getTopTraderAccountRatio(symbol, period, startTime, endTime, limit, timestamp));
     }
 
     @Override
-    public List<CommonLongShortRatio> getTopTraderPositionRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getTopTraderPositionRatio(symbol, period, startTime, endTime, limit));
+    public List<CommonLongShortRatio> getTopTraderPositionRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getTopTraderPositionRatio(symbol, period, startTime, endTime, limit, timestamp));
     }
 
     @Override
-    public List<CommonLongShortRatio> getGlobalAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getGlobalAccountRatio(symbol, period, startTime, endTime, limit));
+    public List<CommonLongShortRatio> getGlobalAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getGlobalAccountRatio(symbol, period, startTime, endTime, limit, timestamp));
     }
 
     @Override
-    public List<TakerLongShortStat> getTakerLongShortRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getTakerLongShortRatio(symbol, period, startTime, endTime, limit));
+    public List<TakerLongShortStat> getTakerLongShortRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp) {
+        return RestApiInvoker.callSync(requestImpl.getTakerLongShortRatio(symbol, period, startTime, endTime, limit, timestamp));
     }
 }

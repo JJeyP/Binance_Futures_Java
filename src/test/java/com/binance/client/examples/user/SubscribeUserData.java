@@ -14,14 +14,14 @@ public class SubscribeUserData {
                 options);
 
         // Start user data stream
-        String listenKey = syncRequestClient.startUserDataStream();
+        String listenKey = syncRequestClient.startUserDataStream(null);
         System.out.println("listenKey: " + listenKey);
 
         // Keep user data stream
-        syncRequestClient.keepUserDataStream(listenKey);
+        syncRequestClient.keepUserDataStream(listenKey, null);
 
         // Close user data stream
-        syncRequestClient.closeUserDataStream(listenKey);
+        syncRequestClient.closeUserDataStream(listenKey, null);
 
         SubscriptionClient client = SubscriptionClient.create();
 

@@ -144,7 +144,7 @@ public interface SyncRequestClient {
      * @param batchOrders
      * @return
      */
-    List<Object> postBatchOrders(String batchOrders);
+    List<Object> postBatchOrders(String batchOrders, Long timestamp);
     
     /**
      * Send in a new order.
@@ -153,35 +153,36 @@ public interface SyncRequestClient {
      */
     Order postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
             TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-            String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType);
+            String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType,
+            Long timestamp);
 
     /**
      * Cancel an active order.
      *
      * @return Order.
      */
-    Order cancelOrder(String symbol, Long orderId, String origClientOrderId);
+    Order cancelOrder(String symbol, Long orderId, String origClientOrderId, Long timestamp);
 
     /**
      * Cancel all open orders.
      *
      * @return ResponseResult.
      */
-    ResponseResult cancelAllOpenOrder(String symbol);
+    ResponseResult cancelAllOpenOrder(String symbol, Long timestamp);
 
     /**
      * Batch cancel orders.
      *
      * @return Order.
      */
-    List<Object> batchCancelOrders(String symbol, String orderIdList, String origClientOrderIdList);
+    List<Object> batchCancelOrders(String symbol, String orderIdList, String origClientOrderIdList, Long timestamp);
 
     /**
      * Switch position side. (true == dual, false == both)
      *
      * @return ResponseResult.
      */
-    ResponseResult changePositionSide(boolean dual);
+    ResponseResult changePositionSide(boolean dual, Long timestamp);
 
     /**
      * Change margin type (ISOLATED, CROSSED)
@@ -189,7 +190,7 @@ public interface SyncRequestClient {
      * @param marginType
      * @return
      */
-    ResponseResult changeMarginType(String symbolName, String marginType);
+    ResponseResult changeMarginType(String symbolName, String marginType, Long timestamp);
 
     /**
      * add isolated position margin
@@ -199,7 +200,7 @@ public interface SyncRequestClient {
      * @param positionSide SHORT, LONG, BOTH
      * @return
      */
-    JSONObject addIsolatedPositionMargin(String symbolName, int type, String amount, PositionSide positionSide);
+    JSONObject addIsolatedPositionMargin(String symbolName, int type, String amount, PositionSide positionSide, Long timestamp);
 
     /**
      *  get position margin history
@@ -217,125 +218,125 @@ public interface SyncRequestClient {
      *
      * @return ResponseResult.
      */
-    JSONObject getPositionSide();
+    JSONObject getPositionSide(Long timestamp);
 
     /**
      * Check an order's status.
      *
      * @return Order status.
      */
-    Order getOrder(String symbol, Long orderId, String origClientOrderId);
+    Order getOrder(String symbol, Long orderId, String origClientOrderId, Long timestamp);
 
     /**
      * Get all open orders on a symbol. Careful when accessing this with no symbol.
      *
      * @return Open orders.
      */
-    List<Order> getOpenOrders(String symbol);
+    List<Order> getOpenOrders(String symbol, Long timestamp);
 
     /**
      * Get all account orders; active, canceled, or filled.
      *
      * @return All orders.
      */
-    List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit);
+    List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit, Long timestamp);
   
     /**
      * Get account balances.
      *
      * @return Balances.
      */
-    List<AccountBalance> getBalance();
+    List<AccountBalance> getBalance(Long timestamp);
   
     /**
      * Get current account information.
      *
      * @return Current account information.
      */
-    AccountInformation getAccountInformation();
+    AccountInformation getAccountInformation(Long timestamp);
   
     /**
      * Change initial leverage.
      *
      * @return Leverage.
      */
-    Leverage changeInitialLeverage(String symbol, Integer leverage);
+    Leverage changeInitialLeverage(String symbol, Integer leverage, Long timestamp);
 
     /**
      * Get position.
      *
      * @return Position.
      */
-    List<PositionRisk> getPositionRisk();
+    List<PositionRisk> getPositionRisk(String symbol, Long timestamp);
 
     /**
      * Get trades for a specific account and symbol.
      *
      * @return Trades.
      */
-    List<MyTrade> getAccountTrades(String symbol, Long startTime, Long endTime, Long fromId, Integer limit);
+    List<MyTrade> getAccountTrades(String symbol, Long startTime, Long endTime, Long fromId, Integer limit, Long timestamp);
 
     /**
      * Get income history.
      *
      * @return Income history.
      */
-    List<Income> getIncomeHistory(String symbol, IncomeType incomeType, Long startTime, Long endTime, Integer limit);
+    List<Income> getIncomeHistory(String symbol, IncomeType incomeType, Long startTime, Long endTime, Integer limit, Long timestamp);
 
     /**
      * Start user data stream.
      *
      * @return listenKey.
      */
-    String startUserDataStream();
+    String startUserDataStream(Long timestamp);
 
     /**
      * Keep user data stream.
      *
      * @return null.
      */
-    String keepUserDataStream(String listenKey);
+    String keepUserDataStream(String listenKey, Long timestamp);
 
     /**
      * Close user data stream.
      *
      * @return null.
      */
-    String closeUserDataStream(String listenKey);
+    String closeUserDataStream(String listenKey, Long timestamp);
 
     /**
      * Open Interest Stat (MARKET DATA)
      *
      * @return Open Interest Stat.
      */
-    List<OpenInterestStat> getOpenInterestStat(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<OpenInterestStat> getOpenInterestStat(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp);
 
     /**
      * Top Trader Long/Short Ratio (Accounts) (MARKET DATA)
      *
      * @return Top Trader Long/Short Ratio (Accounts).
      */
-    List<CommonLongShortRatio> getTopTraderAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<CommonLongShortRatio> getTopTraderAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp);
 
     /**
      * Top Trader Long/Short Ratio (Positions) (MARKET DATA)
      *
      * @return Top Trader Long/Short Ratio (Positions).
      */
-    List<CommonLongShortRatio> getTopTraderPositionRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<CommonLongShortRatio> getTopTraderPositionRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp);
 
     /**
      * Long/Short Ratio (MARKET DATA)
      *
      * @return global Long/Short Ratio. 
      */
-    List<CommonLongShortRatio> getGlobalAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<CommonLongShortRatio> getGlobalAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp);
 
     /**
      * Taker Long/Short Ratio (MARKET DATA)
      *
      * @return Taker Long/Short Ratio. 
      */
-    List<TakerLongShortStat> getTakerLongShortRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<TakerLongShortStat> getTakerLongShortRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit, Long timestamp);
 
 }
